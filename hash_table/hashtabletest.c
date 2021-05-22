@@ -3,9 +3,9 @@
 
 int main()
 {
-	struct node table[SIZE];
+	struct node table[TABLE_SIZE];
 
-	printf("%d\n", insert( table , "korea", 100));
+	printf("%d\n", insert( table[0] , "korea", 100));
 
 	return 0;
 }

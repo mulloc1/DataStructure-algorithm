@@ -3,36 +3,31 @@
 
 int insert(struct node * arr, char * key, element value)
 {
-	int result=1, hashcode=0, index=0;
-	struct node * temp, * last;
+	int hashcode = get_hashcode(key);
+	int index = indexing(hashcode, TABLE_SIZE);
+	int result = 1;
+	struct node * temp = arr;
 
-	hashcode = get_hashcode(*key);
-	index = indexing(hashcode, TABLE_SIZE);	
-	
-	if (arr[index] == 0) {
-		arr[index] = (struct node*)malloc(sizeof(struct node));
+	if ( *(arr+index) == 0 ) {
+		*(arr+index) = (struct node*)malloc(sizeof(struct node));
+		
+		if (*(arr+index) == 0) 
+			result = 0;
 
-		if (arr[index] == 0)
-			result=0;
-
-		arr[index]->value = value;
+		arr+index->value = value;
 	}
-	else{
-		last = arr[index];
-		while (last->link != 0) {
-			last = last->link;
+	else {	
+		while (temp->link != 0){
+			temp = temp->link;
 		}
+		temp->link = (struct node*)malloc(sizeof(struct node));
 		
-		temp = (struct node *)malloc(sizeof(struct node));
-		
-		if (temp == 0)
-			result=0;
-
+		if (temp->link == 0)
+			result = 0;
+	
+		temp = temp->link;
 		temp->value = value;
-		temp->link = last;
 	}
-
-	return result;	
 }
 
 element search(char * key);
